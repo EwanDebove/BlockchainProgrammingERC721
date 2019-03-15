@@ -44,7 +44,7 @@ contract ERC721 is ERC165, IERC721 {
    *   bytes4(keccak256('safeTransferFrom(address,address,uint256)')) ^
    *   bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)'))
    */
-  mapping (address => bool) komandarms;
+  mapping (address => bool) Komandarm;
   address[] komandarmsAccs;
   address Stalin;
 
@@ -53,19 +53,22 @@ contract ERC721 is ERC165, IERC721 {
     string name;
     bool isMale;
     uint256 age;
-    uint256 communismLevel;
     uint256 strengh;
     uint256 hunger;
-    uint256 vodka;
     }
 
   mapping (uint256 => citizen) Komrads;
+  uint256[] ids;
+  uint256[] pi = [3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8,8,4,0,1,9,7,1,6,9,3,9,9,3,7,5,1,0];
+  uint256 count;
 
   constructor()
     public
   {
     // register the supported interfaces to conform to ERC721 via ERC165
     _registerInterface(_InterfaceId_ERC721);
+    Stalin = msg.sender;
+    count = 0;
   }
 
   /**
@@ -343,14 +346,37 @@ contract ERC721 is ERC165, IERC721 {
       _tokenApprovals[tokenId] = address(0);
     }
   }
-
+  function fakeRand() internal returns(uint256){
+    if (count==51){
+      count=0;
+    }
+    return pi[count];
+  }
   //Declare a new Komandarm to monitor the actions of the citizens of the motherland
   function addKomandarm(address _new) public returns (bool success){
         require(msg.sender == Stalin);
-        komandarms[_new] = true;
+        Komandarm[_new] = true;
         komandarmsAccs.push(_new);
         return true;
   }
 
+  function declareCitizen(address _owner,string _name,bool _isMale,uint256 _age,uint256 _strengh,uint256 _hunger) public returns (bool success){
+    require(Komandarm[msg.sender]==true);
+    uint256 id = ids.length;
+    ids.push(id);
+    citizen newCitizen = Komrads[id];
+    newCitizen.owner = msg.sender;
+    newCitizen.name = _name;
+    if(fakeRand()>4){
+      newCitizen.isMale = true;
+    }
+    else{
+      newCitizen.isMale = false;
+    }
+    newCitizen.age = fakeRand()*fakeRand() + 1;
+    newCitizen.strengh = fakeRand() * 10 + fakeRand();
+    newCitizen.hunger = newCitizen.strengh - newCitizen.age ;
+    
 
+  }
 }
