@@ -55,6 +55,7 @@ contract MarxCoin is ERC165, IERC721 {
     uint256 age;
     uint256 strengh;
     uint256 hunger;
+    uint declarationDate;
     }
 
   mapping (uint256 => citizen) Komrads;
@@ -346,6 +347,9 @@ contract MarxCoin is ERC165, IERC721 {
       _tokenApprovals[tokenId] = address(0);
     }
   }
+
+  //takes a number from the 50 first decimals of pi
+  //not true random, can easily be predicted if you count the transactions
   function fakeRand() internal returns(uint256){
     if (count==51){
       count=0;
@@ -371,6 +375,7 @@ contract MarxCoin is ERC165, IERC721 {
     newCitizen.age = _age;
     newCitizen.strengh = _strength;
     newCitizen.hunger = _hunger;
+    newCitizen.declarationDate = block.timestamp;
   }
   function death(uint256 _id) public returns (bool success){
     require(msg.sender==ownerOf(_id));
@@ -401,7 +406,31 @@ contract MarxCoin is ERC165, IERC721 {
     newCitizen.age = fakeRand()*fakeRand() + 1;
     newCitizen.strengh = fakeRand() * 10 + fakeRand();
     newCitizen.hunger = newCitizen.strengh - newCitizen.age ;
+    newCitizen.declarationDate = block.timestamp;
     return newCitizen.id;
+  }
+
+  function aging(uint256 _id) internal returns (bool success){
+    citizen citizenToUpdate = Komrads[_id];
+    citizenToUpdate.age = now - citizenToUpdate.declarationDate;
+    if(citizenToUpdate.age > 80 * 252455616){//80 years in seconds
+      if(citizenToUpdate.age >= 90 * 252455616){
+        death(_id);
+        return false;
+      }
+      else{
+        if(fakeRand() < (citizenToUpdate.age - 80 * 252455616)){
+          death(_id);
+          return false;
+        }
+      }
+    }
+    else{
+          return true;
+    }
+  }
+  function update(uint256 _id)public view returns (bool success){
+    return aging(_id);
   }
   /*
   function askToReproduce(uint256 _idOwn, address _otherOwner, uint256 _idOther) public returns(bool success){}
