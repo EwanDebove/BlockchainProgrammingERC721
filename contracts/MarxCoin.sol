@@ -46,14 +46,14 @@ contract MarxCoin is ERC165, IERC721 {
    */
   mapping (address => bool) Komandarm;
   address[] komandarmsAccs;
-  address Stalin;
+  address public Stalin;
 
   struct citizen{
     address owner;
     string name;
     bool isMale;
     uint256 age;
-    uint256 strengh;
+    uint256 strength;
     uint256 hunger;
     uint declarationDate;
     }
@@ -364,7 +364,7 @@ contract MarxCoin is ERC165, IERC721 {
         return true;
   }
 
-  function declareCitizen(string _name, bool _isMale, uint256 _age, uint256 _strength, uint256 hunger) public returns (bool success){
+  function declareCitizen(string _name, bool _isMale, uint256 _age, uint256 _strength, uint256 _hunger) public returns (bool success){
     require(Komandarm[msg.sender]==true);
     uint256 id = ids.length;
     ids.push(id);
@@ -373,7 +373,7 @@ contract MarxCoin is ERC165, IERC721 {
     newCitizen.name = _name;
     newCitizen.isMale = _isMale;
     newCitizen.age = _age;
-    newCitizen.strengh = _strength;
+    newCitizen.strength = _strength;
     newCitizen.hunger = _hunger;
     newCitizen.declarationDate = block.timestamp;
   }
@@ -385,17 +385,17 @@ contract MarxCoin is ERC165, IERC721 {
   }
   //is equivalent to death
   function gulag(uint256 _id) public returns (bool success){
-    death(_id);
+    _burn(ownerOf(_id),_id);
     return true;
   }
-  //born at a random age
+
   function babyProletarian(uint256 _id1,uint256 _id2,string _name)  public returns (uint256 babyId){
     citizen dad = Komrads[_id1];
     citizen mom = Komrads[_id2];
     uint256 id = ids.length;
     ids.push(id);
     citizen newCitizen = Komrads[id];
-    newCitizen.owner = ownerOf(mom.id);
+    newCitizen.owner = ownerOf(_id2);
     newCitizen.name = _name;
     if(fakeRand()>4){
       newCitizen.isMale = true;
@@ -403,11 +403,11 @@ contract MarxCoin is ERC165, IERC721 {
     else{
       newCitizen.isMale = false;
     }
-    newCitizen.age = fakeRand()*fakeRand() + 1;
-    newCitizen.strengh = fakeRand() * 10 + fakeRand();
-    newCitizen.hunger = newCitizen.strengh - newCitizen.age ;
+    newCitizen.age = 0;
+    newCitizen.strength = fakeRand() * 10 + fakeRand();
+    newCitizen.hunger = newCitizen.strength - newCitizen.age ;
     newCitizen.declarationDate = block.timestamp;
-    return newCitizen.id;
+    return id;
   }
 
   function aging(uint256 _id) internal returns (bool success){
@@ -415,12 +415,12 @@ contract MarxCoin is ERC165, IERC721 {
     citizenToUpdate.age = now - citizenToUpdate.declarationDate;
     if(citizenToUpdate.age > 80 * 252455616){//80 years in seconds
       if(citizenToUpdate.age >= 90 * 252455616){
-        death(_id);
+        _burn(ownerOf(_id),_id);
         return false;
       }
       else{
         if(fakeRand() < (citizenToUpdate.age - 80 * 252455616)){
-          death(_id);
+          _burn(ownerOf(_id),_id);
           return false;
         }
       }
@@ -429,8 +429,13 @@ contract MarxCoin is ERC165, IERC721 {
           return true;
     }
   }
-  function update(uint256 _id)public view returns (bool success){
+  function update(uint256 _id)public returns (bool success){
     return aging(_id);
+  }
+
+  function viewStats(uint256 _id)public returns(bool success, string name, uint256 age, bool isMale, uint256 strength, uint256 hunger){
+    aging(_id);
+    return(true , Komrads[_id].name , Komrads[_id].age , Komrads[_id].isMale , Komrads[_id].strength , Komrads[_id].hunger);
   }
   /*
   function askToReproduce(uint256 _idOwn, address _otherOwner, uint256 _idOther) public returns(bool success){}
