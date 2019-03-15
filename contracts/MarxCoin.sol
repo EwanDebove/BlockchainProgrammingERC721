@@ -360,7 +360,7 @@ contract ERC721 is ERC165, IERC721 {
         return true;
   }
 
-  function declareCitizen(address _owner,string _name,bool _isMale,uint256 _age,uint256 _strengh,uint256 _hunger) public returns (bool success){
+  function declareCitizen(string _name) public returns (bool success){
     require(Komandarm[msg.sender]==true);
     uint256 id = ids.length;
     ids.push(id);
@@ -376,7 +376,21 @@ contract ERC721 is ERC165, IERC721 {
     newCitizen.age = fakeRand()*fakeRand() + 1;
     newCitizen.strengh = fakeRand() * 10 + fakeRand();
     newCitizen.hunger = newCitizen.strengh - newCitizen.age ;
-    
+    return true;
 
+  }
+  function death(uint256 _id) public returns (bool success){
+    require(msg.sender==ownerOf(_id));
+    _burn(ownerOf(_id),_id);
+    return true;
+
+  }
+  //is equivalent to death
+  function gulag(uint256 _id) public returns (bool success){
+    death(_id);
+    return true;
+  }
+  function askToReproduce(uint256 _idOwn, address _otherOwner, uint256 _idOther) public returns({}
+  function babyProletarian(uint256 _id1,uint256 _id2)  public returns (citizen littleLenin){
   }
 }

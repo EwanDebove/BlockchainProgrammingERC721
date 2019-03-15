@@ -297,14 +297,14 @@
     "absolutePath": "/C/Users/Ewan Debove/desktop/blockchain/td6/contracts/token/ERC721/ERC721Burnable.sol",
     "exportedSymbols": {
       "ERC721Burnable": [
-        1942
+        1974
       ]
     },
-    "id": 1943,
+    "id": 1975,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1917,
+        "id": 1949,
         "literals": [
           "solidity",
           "^",
@@ -317,10 +317,10 @@
       {
         "absolutePath": "/C/Users/Ewan Debove/desktop/blockchain/td6/contracts/token/ERC721/ERC721.sol",
         "file": "./ERC721.sol",
-        "id": 1918,
+        "id": 1950,
         "nodeType": "ImportDirective",
-        "scope": 1943,
-        "sourceUnit": 1916,
+        "scope": 1975,
+        "sourceUnit": 1948,
         "src": "26:22:9",
         "symbolAliases": [],
         "unitAlias": ""
@@ -331,44 +331,44 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 1919,
+              "id": 1951,
               "name": "ERC721",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1915,
+              "referencedDeclaration": 1947,
               "src": "77:6:9",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ERC721_$1915",
+                "typeIdentifier": "t_contract$_ERC721_$1947",
                 "typeString": "contract ERC721"
               }
             },
-            "id": 1920,
+            "id": 1952,
             "nodeType": "InheritanceSpecifier",
             "src": "77:6:9"
           }
         ],
         "contractDependencies": [
-          1149,
-          1159,
-          1915,
-          2570
+          1181,
+          1191,
+          1947,
+          2602
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 1942,
+        "id": 1974,
         "linearizedBaseContracts": [
-          1942,
-          1915,
-          2570,
-          1149,
-          1159
+          1974,
+          1947,
+          2602,
+          1181,
+          1191
         ],
         "name": "ERC721Burnable",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 1940,
+              "id": 1972,
               "nodeType": "Block",
               "src": "132:97:9",
               "statements": [
@@ -383,18 +383,18 @@
                             "argumentTypes": null,
                             "expression": {
                               "argumentTypes": null,
-                              "id": 1927,
+                              "id": 1959,
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 2670,
+                              "referencedDeclaration": 2702,
                               "src": "165:3:9",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
                                 "typeString": "msg"
                               }
                             },
-                            "id": 1928,
+                            "id": 1960,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -410,11 +410,11 @@
                           },
                           {
                             "argumentTypes": null,
-                            "id": 1929,
+                            "id": 1961,
                             "name": "tokenId",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1922,
+                            "referencedDeclaration": 1954,
                             "src": "177:7:9",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -433,18 +433,18 @@
                               "typeString": "uint256"
                             }
                           ],
-                          "id": 1926,
+                          "id": 1958,
                           "name": "_isApprovedOrOwner",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1716,
+                          "referencedDeclaration": 1748,
                           "src": "146:18:9",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_internal_view$_t_address_$_t_uint256_$returns$_t_bool_$",
                             "typeString": "function (address,uint256) view returns (bool)"
                           }
                         },
-                        "id": 1930,
+                        "id": 1962,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -466,21 +466,21 @@
                           "typeString": "bool"
                         }
                       ],
-                      "id": 1925,
+                      "id": 1957,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        2673,
-                        2674
+                        2705,
+                        2706
                       ],
-                      "referencedDeclaration": 2673,
+                      "referencedDeclaration": 2705,
                       "src": "138:7:9",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
                         "typeString": "function (bool) pure"
                       }
                     },
-                    "id": 1931,
+                    "id": 1963,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -494,7 +494,7 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1932,
+                  "id": 1964,
                   "nodeType": "ExpressionStatement",
                   "src": "138:48:9"
                 },
@@ -507,11 +507,11 @@
                         "arguments": [
                           {
                             "argumentTypes": null,
-                            "id": 1935,
+                            "id": 1967,
                             "name": "tokenId",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1922,
+                            "referencedDeclaration": 1954,
                             "src": "206:7:9",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -526,20 +526,20 @@
                               "typeString": "uint256"
                             }
                           ],
-                          "id": 1934,
+                          "id": 1966,
                           "name": "ownerOf",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [
-                            1463
+                            1495
                           ],
-                          "referencedDeclaration": 1463,
+                          "referencedDeclaration": 1495,
                           "src": "198:7:9",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_internal_view$_t_uint256_$returns$_t_address_$",
                             "typeString": "function (uint256) view returns (address)"
                           }
                         },
-                        "id": 1936,
+                        "id": 1968,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -555,11 +555,11 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 1937,
+                        "id": 1969,
                         "name": "tokenId",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1922,
+                        "referencedDeclaration": 1954,
                         "src": "216:7:9",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -578,18 +578,18 @@
                           "typeString": "uint256"
                         }
                       ],
-                      "id": 1933,
+                      "id": 1965,
                       "name": "_burn",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1771,
+                      "referencedDeclaration": 1803,
                       "src": "192:5:9",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_address_$_t_uint256_$returns$__$",
                         "typeString": "function (address,uint256)"
                       }
                     },
-                    "id": 1938,
+                    "id": 1970,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -603,14 +603,14 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1939,
+                  "id": 1971,
                   "nodeType": "ExpressionStatement",
                   "src": "192:32:9"
                 }
               ]
             },
             "documentation": null,
-            "id": 1941,
+            "id": 1973,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -618,15 +618,15 @@
             "name": "burn",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1923,
+              "id": 1955,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1922,
+                  "id": 1954,
                   "name": "tokenId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1941,
+                  "scope": 1973,
                   "src": "102:15:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -635,7 +635,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1921,
+                    "id": 1953,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "102:7:9",
@@ -652,19 +652,19 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 1924,
+              "id": 1956,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "132:0:9"
             },
-            "scope": 1942,
+            "scope": 1974,
             "src": "88:141:9",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 1943,
+        "scope": 1975,
         "src": "50:181:9"
       }
     ],
@@ -674,14 +674,14 @@
     "absolutePath": "/C/Users/Ewan Debove/desktop/blockchain/td6/contracts/token/ERC721/ERC721Burnable.sol",
     "exportedSymbols": {
       "ERC721Burnable": [
-        1942
+        1974
       ]
     },
-    "id": 1943,
+    "id": 1975,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1917,
+        "id": 1949,
         "literals": [
           "solidity",
           "^",
@@ -694,10 +694,10 @@
       {
         "absolutePath": "/C/Users/Ewan Debove/desktop/blockchain/td6/contracts/token/ERC721/ERC721.sol",
         "file": "./ERC721.sol",
-        "id": 1918,
+        "id": 1950,
         "nodeType": "ImportDirective",
-        "scope": 1943,
-        "sourceUnit": 1916,
+        "scope": 1975,
+        "sourceUnit": 1948,
         "src": "26:22:9",
         "symbolAliases": [],
         "unitAlias": ""
@@ -708,44 +708,44 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 1919,
+              "id": 1951,
               "name": "ERC721",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1915,
+              "referencedDeclaration": 1947,
               "src": "77:6:9",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ERC721_$1915",
+                "typeIdentifier": "t_contract$_ERC721_$1947",
                 "typeString": "contract ERC721"
               }
             },
-            "id": 1920,
+            "id": 1952,
             "nodeType": "InheritanceSpecifier",
             "src": "77:6:9"
           }
         ],
         "contractDependencies": [
-          1149,
-          1159,
-          1915,
-          2570
+          1181,
+          1191,
+          1947,
+          2602
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 1942,
+        "id": 1974,
         "linearizedBaseContracts": [
-          1942,
-          1915,
-          2570,
-          1149,
-          1159
+          1974,
+          1947,
+          2602,
+          1181,
+          1191
         ],
         "name": "ERC721Burnable",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 1940,
+              "id": 1972,
               "nodeType": "Block",
               "src": "132:97:9",
               "statements": [
@@ -760,18 +760,18 @@
                             "argumentTypes": null,
                             "expression": {
                               "argumentTypes": null,
-                              "id": 1927,
+                              "id": 1959,
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 2670,
+                              "referencedDeclaration": 2702,
                               "src": "165:3:9",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
                                 "typeString": "msg"
                               }
                             },
-                            "id": 1928,
+                            "id": 1960,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -787,11 +787,11 @@
                           },
                           {
                             "argumentTypes": null,
-                            "id": 1929,
+                            "id": 1961,
                             "name": "tokenId",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1922,
+                            "referencedDeclaration": 1954,
                             "src": "177:7:9",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -810,18 +810,18 @@
                               "typeString": "uint256"
                             }
                           ],
-                          "id": 1926,
+                          "id": 1958,
                           "name": "_isApprovedOrOwner",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1716,
+                          "referencedDeclaration": 1748,
                           "src": "146:18:9",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_internal_view$_t_address_$_t_uint256_$returns$_t_bool_$",
                             "typeString": "function (address,uint256) view returns (bool)"
                           }
                         },
-                        "id": 1930,
+                        "id": 1962,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -843,21 +843,21 @@
                           "typeString": "bool"
                         }
                       ],
-                      "id": 1925,
+                      "id": 1957,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        2673,
-                        2674
+                        2705,
+                        2706
                       ],
-                      "referencedDeclaration": 2673,
+                      "referencedDeclaration": 2705,
                       "src": "138:7:9",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
                         "typeString": "function (bool) pure"
                       }
                     },
-                    "id": 1931,
+                    "id": 1963,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -871,7 +871,7 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1932,
+                  "id": 1964,
                   "nodeType": "ExpressionStatement",
                   "src": "138:48:9"
                 },
@@ -884,11 +884,11 @@
                         "arguments": [
                           {
                             "argumentTypes": null,
-                            "id": 1935,
+                            "id": 1967,
                             "name": "tokenId",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1922,
+                            "referencedDeclaration": 1954,
                             "src": "206:7:9",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -903,20 +903,20 @@
                               "typeString": "uint256"
                             }
                           ],
-                          "id": 1934,
+                          "id": 1966,
                           "name": "ownerOf",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [
-                            1463
+                            1495
                           ],
-                          "referencedDeclaration": 1463,
+                          "referencedDeclaration": 1495,
                           "src": "198:7:9",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_internal_view$_t_uint256_$returns$_t_address_$",
                             "typeString": "function (uint256) view returns (address)"
                           }
                         },
-                        "id": 1936,
+                        "id": 1968,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -932,11 +932,11 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 1937,
+                        "id": 1969,
                         "name": "tokenId",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1922,
+                        "referencedDeclaration": 1954,
                         "src": "216:7:9",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -955,18 +955,18 @@
                           "typeString": "uint256"
                         }
                       ],
-                      "id": 1933,
+                      "id": 1965,
                       "name": "_burn",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1771,
+                      "referencedDeclaration": 1803,
                       "src": "192:5:9",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_address_$_t_uint256_$returns$__$",
                         "typeString": "function (address,uint256)"
                       }
                     },
-                    "id": 1938,
+                    "id": 1970,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -980,14 +980,14 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1939,
+                  "id": 1971,
                   "nodeType": "ExpressionStatement",
                   "src": "192:32:9"
                 }
               ]
             },
             "documentation": null,
-            "id": 1941,
+            "id": 1973,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -995,15 +995,15 @@
             "name": "burn",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1923,
+              "id": 1955,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1922,
+                  "id": 1954,
                   "name": "tokenId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1941,
+                  "scope": 1973,
                   "src": "102:15:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1012,7 +1012,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1921,
+                    "id": 1953,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "102:7:9",
@@ -1029,19 +1029,19 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 1924,
+              "id": 1956,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "132:0:9"
             },
-            "scope": 1942,
+            "scope": 1974,
             "src": "88:141:9",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 1943,
+        "scope": 1975,
         "src": "50:181:9"
       }
     ],
@@ -1053,5 +1053,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.2",
-  "updatedAt": "2019-03-15T11:02:59.973Z"
+  "updatedAt": "2019-03-15T12:33:02.603Z"
 }
