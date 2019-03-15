@@ -10,7 +10,7 @@ import "./introspection/ERC165.sol";
  * @title ERC721 Non-Fungible Token Standard basic implementation
  * @dev see https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md
  */
-contract ERC721 is ERC165, IERC721 {
+contract MarxCoin is ERC165, IERC721 {
 
   using SafeMath for uint256;
   using Address for address;
@@ -390,7 +390,9 @@ contract ERC721 is ERC165, IERC721 {
     death(_id);
     return true;
   }
-  function askToReproduce(uint256 _idOwn, address _otherOwner, uint256 _idOther) public returns({}
+  /*
+  function askToReproduce(uint256 _idOwn, address _otherOwner, uint256 _idOther) public returns(bool success){}
   function babyProletarian(uint256 _id1,uint256 _id2)  public returns (citizen littleLenin){
-  }
+  
+  }*/
 }
