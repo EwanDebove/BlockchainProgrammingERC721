@@ -360,24 +360,17 @@ contract MarxCoin is ERC165, IERC721 {
         return true;
   }
 
-  function declareCitizen(string _name) public returns (bool success){
+  function declareCitizen(string _name, bool _isMale, uint256 _age, uint256 _strength, uint256 hunger) public returns (bool success){
     require(Komandarm[msg.sender]==true);
     uint256 id = ids.length;
     ids.push(id);
     citizen newCitizen = Komrads[id];
     newCitizen.owner = msg.sender;
     newCitizen.name = _name;
-    if(fakeRand()>4){
-      newCitizen.isMale = true;
-    }
-    else{
-      newCitizen.isMale = false;
-    }
-    newCitizen.age = fakeRand()*fakeRand() + 1;
-    newCitizen.strengh = fakeRand() * 10 + fakeRand();
-    newCitizen.hunger = newCitizen.strengh - newCitizen.age ;
-    return true;
-
+    newCitizen.isMale = _isMale;
+    newCitizen.age = _age;
+    newCitizen.strengh = _strength;
+    newCitizen.hunger = _hunger;
   }
   function death(uint256 _id) public returns (bool success){
     require(msg.sender==ownerOf(_id));
@@ -389,6 +382,26 @@ contract MarxCoin is ERC165, IERC721 {
   function gulag(uint256 _id) public returns (bool success){
     death(_id);
     return true;
+  }
+  //born at a random age
+  function babyProletarian(uint256 _id1,uint256 _id2,string _name)  public returns (uint256 babyId){
+    citizen dad = Komrads[_id1];
+    citizen mom = Komrads[_id2];
+    uint256 id = ids.length;
+    ids.push(id);
+    citizen newCitizen = Komrads[id];
+    newCitizen.owner = ownerOf(mom.id);
+    newCitizen.name = _name;
+    if(fakeRand()>4){
+      newCitizen.isMale = true;
+    }
+    else{
+      newCitizen.isMale = false;
+    }
+    newCitizen.age = fakeRand()*fakeRand() + 1;
+    newCitizen.strengh = fakeRand() * 10 + fakeRand();
+    newCitizen.hunger = newCitizen.strengh - newCitizen.age ;
+    return newCitizen.id;
   }
   /*
   function askToReproduce(uint256 _idOwn, address _otherOwner, uint256 _idOther) public returns(bool success){}
