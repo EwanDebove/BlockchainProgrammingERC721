@@ -58,7 +58,7 @@ contract MarxCoin is ERC165, IERC721 {
     uint declarationDate;
     }
 
-  mapping (uint256 => citizen) Komrads;
+  mapping public (uint256 => citizen) Komrads;
   uint256[] ids;
   uint256[] pi = [3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8,8,4,0,1,9,7,1,6,9,3,9,9,3,7,5,1,0];
   uint256 count;
@@ -70,6 +70,9 @@ contract MarxCoin is ERC165, IERC721 {
     _registerInterface(_InterfaceId_ERC721);
     Stalin = msg.sender;
     count = 0;
+    addKomandarm(Stalin);
+    declareCitizen("Dimitri", true, 38, 40, 0);
+    declareCitizen("Svetlana", false, 38, 40, 0);
   }
 
   /**
@@ -80,6 +83,17 @@ contract MarxCoin is ERC165, IERC721 {
   function balanceOf(address owner) public view returns (uint256) {
     require(owner != address(0));
     return _ownedTokensCount[owner];
+  }
+
+  function viewCitizens(address owner) public view returns (uint256[]){
+    uint256[] citizens;
+    for (uint256 i = 0 ; i < ids.length ; i++){
+      if(Komrads[ids[i]].owner == owner){
+        citizens.push(ids[i]);
+      }
+    }
+    return citizens;
+
   }
 
   /**
@@ -365,8 +379,9 @@ contract MarxCoin is ERC165, IERC721 {
   }
 
   function declareCitizen(string _name, bool _isMale, uint256 _age, uint256 _strength, uint256 _hunger) public returns (bool success){
-    require(Komandarm[msg.sender]==true);
+    require(Komandarm[msg.sender] == true);
     uint256 id = ids.length;
+    _tokenOwner[id] = msg.sender;
     ids.push(id);
     citizen newCitizen = Komrads[id];
     newCitizen.owner = msg.sender;
@@ -376,6 +391,7 @@ contract MarxCoin is ERC165, IERC721 {
     newCitizen.strength = _strength;
     newCitizen.hunger = _hunger;
     newCitizen.declarationDate = block.timestamp;
+    return true;
   }
   function death(uint256 _id) public returns (bool success){
     require(msg.sender==ownerOf(_id));
@@ -390,12 +406,11 @@ contract MarxCoin is ERC165, IERC721 {
   }
 
   function babyProletarian(uint256 _id1,uint256 _id2,string _name)  public returns (uint256 babyId){
-    citizen dad = Komrads[_id1];
-    citizen mom = Komrads[_id2];
     uint256 id = ids.length;
     ids.push(id);
     citizen newCitizen = Komrads[id];
     newCitizen.owner = ownerOf(_id2);
+    _tokenOwner[id] = ownerOf(_id2);
     newCitizen.name = _name;
     if(fakeRand()>4){
       newCitizen.isMale = true;
@@ -404,6 +419,25 @@ contract MarxCoin is ERC165, IERC721 {
       newCitizen.isMale = false;
     }
     newCitizen.age = 0;
+    newCitizen.strength = fakeRand() * 10 + fakeRand();
+    newCitizen.hunger = newCitizen.strength - newCitizen.age ;
+    newCitizen.declarationDate = block.timestamp;
+    return id;
+  }
+
+   function spawn(string _name, address _owner)  public returns (uint256 babyId){
+    uint256 id = ids.length;
+    ids.push(id);
+    citizen newCitizen = Komrads[id];
+    newCitizen.owner = _owner;
+    newCitizen.name = _name;
+    if(fakeRand()>4){
+      newCitizen.isMale = true;
+    }
+    else{
+      newCitizen.isMale = false;
+    }
+    newCitizen.age = fakeRand() * fakeRand();
     newCitizen.strength = fakeRand() * 10 + fakeRand();
     newCitizen.hunger = newCitizen.strength - newCitizen.age ;
     newCitizen.declarationDate = block.timestamp;
