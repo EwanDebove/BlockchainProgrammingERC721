@@ -569,11 +569,4 @@ contract MarxCoin is ERC165, IERC721 {
   }
 
 
-  /*
-  function reproduce(){
-  baby(id2,id1);
-  baby(id1,id2);
-  }
-  function askToReproduce(uint256 _idOwn, address _otherOwner, uint256 _idOther) public returns(bool success){}
-  */
 }
