@@ -47,7 +47,7 @@ contract MarxCoin is ERC165, IERC721 {
   mapping (address => bool) Komandarm;
   address[] komandarmsAccs;
   address public Stalin;
-
+  address public Arena;
   struct citizen{
     address owner;
     string name;
@@ -57,11 +57,30 @@ contract MarxCoin is ERC165, IERC721 {
     uint256 hunger;
     uint declarationDate;
     }
+  struct Offer{
+    address sender;
+    address recipient;
+    uint256 senderCitID;
+    uint256 recipientCitID;
+    bool fightOrBreed; //true == fight ; false == breed;
 
-  mapping public (uint256 => citizen) Komrads;
+  }
+  struct inbox{
+    address owner;
+    mapping (uint256 => Offer) offers;
+    uint256[] offersID;
+  }
+  mapping (address => inbox) postOffice;
+
+  mapping (uint256 => citizen) public Komrads;
   uint256[] ids;
   uint256[] pi = [3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8,8,4,0,1,9,7,1,6,9,3,9,9,3,7,5,1,0];
   uint256 count;
+
+  string Breed = "Breed";
+  string Fight = "Fight";
+
+  event result(address owner, uint256 Id);
 
   constructor()
     public
@@ -391,6 +410,7 @@ contract MarxCoin is ERC165, IERC721 {
     newCitizen.strength = _strength;
     newCitizen.hunger = _hunger;
     newCitizen.declarationDate = block.timestamp;
+    result(msg.sender, id);
     return true;
   }
   function death(uint256 _id) public returns (bool success){
@@ -405,7 +425,7 @@ contract MarxCoin is ERC165, IERC721 {
     return true;
   }
 
-  function babyProletarian(uint256 _id1,uint256 _id2,string _name)  public returns (uint256 babyId){
+  function babyProletarian(uint256 _id1,uint256 _id2,string _name)  private {
     uint256 id = ids.length;
     ids.push(id);
     citizen newCitizen = Komrads[id];
@@ -422,7 +442,13 @@ contract MarxCoin is ERC165, IERC721 {
     newCitizen.strength = fakeRand() * 10 + fakeRand();
     newCitizen.hunger = newCitizen.strength - newCitizen.age ;
     newCitizen.declarationDate = block.timestamp;
-    return id;
+    result(newCitizen.owner, id);
+  }
+
+  function reproduce(uint256 _id1, uint256 _id2, string _name1, string _name2)public {
+    babyProletarian(_id1,_id2,_name2);
+    babyProletarian(_id2,_id1,_name1);
+
   }
 
    function spawn(string _name, address _owner)  public returns (uint256 babyId){
@@ -437,7 +463,7 @@ contract MarxCoin is ERC165, IERC721 {
     else{
       newCitizen.isMale = false;
     }
-    newCitizen.age = fakeRand() * fakeRand();
+    newCitizen.age = fakeRand() * (fakeRand() + 1);
     newCitizen.strength = fakeRand() * 10 + fakeRand();
     newCitizen.hunger = newCitizen.strength - newCitizen.age ;
     newCitizen.declarationDate = block.timestamp;
@@ -467,13 +493,87 @@ contract MarxCoin is ERC165, IERC721 {
     return aging(_id);
   }
 
-  function viewStats(uint256 _id)public returns(bool success, string name, uint256 age, bool isMale, uint256 strength, uint256 hunger){
+  function viewStats(uint256 _id)public view returns(bool success, string name, uint256 age, bool isMale, uint256 strength, uint256 hunger){
     aging(_id);
     return(true , Komrads[_id].name , Komrads[_id].age , Komrads[_id].isMale , Komrads[_id].strength , Komrads[_id].hunger);
   }
+
+  function viewInbox() public view returns (uint256[] _offers) {
+    
+    return 
+    postOffice[msg.sender].offersID;
+    
+  }
+
+  function viewOffer(uint256 _offerID) public view returns (address _sender, uint256 _theirChamp, uint256 _myChamp, string fightOrBreed){
+    string _fightOrBreed = Breed;
+    if(postOffice[msg.sender].offers[_offerID].fightOrBreed == true){
+      _fightOrBreed = Fight;
+    }
+    return (postOffice[msg.sender].offers[_offerID].sender, postOffice[msg.sender].offers[_offerID].senderCitID, postOffice[msg.sender].offers[_offerID].recipientCitID, _fightOrBreed);
+
+  }
+
+
+
+
+  function proposeFight(address _adversary, uint256 _myChamp, uint256 _theirChamp) public {
+    require(Komrads[_myChamp].owner == msg.sender);
+    require(Komrads[_theirChamp].owner == _adversary);
+
+    Offer newOffer = postOffice[_adversary].offers[postOffice[_adversary].offersID.length];
+    postOffice[_adversary].offersID.push(postOffice[_adversary].offersID.length);
+
+    newOffer.sender = msg.sender;
+    newOffer.recipient = _adversary;
+    newOffer.senderCitID = _myChamp;
+    newOffer.recipientCitID = _theirChamp;
+    newOffer.fightOrBreed = true  ;
+
+  }
+
+  function proposeBreed(address _adversary, uint256 _myChamp, uint256 _theirChamp) public {
+    require(Komrads[_myChamp].owner == msg.sender);
+    require(Komrads[_theirChamp].owner == _adversary);
+    require(Komrads[_myChamp].isMale != Komrads[_theirChamp].isMale);
+
+    Offer newOffer = postOffice[_adversary].offers[postOffice[_adversary].offersID.length];
+    postOffice[_adversary].offersID.push(postOffice[_adversary].offersID.length);
+
+    newOffer.sender = msg.sender;
+    newOffer.recipient = _adversary;
+    newOffer.senderCitID = _myChamp;
+    newOffer.recipientCitID = _theirChamp;
+    newOffer.fightOrBreed = false ;
+
+  }
+
+  function acceptFight(uint256 _offerId) public {
+    if(postOffice [msg.sender].offers[_offerId].fightOrBreed == true){
+        uint256 win = fight(postOffice[msg.sender].offers[_offerId].senderCitID, postOffice[msg.sender].offers[_offerId].recipientCitID);
+        result(ownerOf(win), win);
+      }
+  }
+  function acceptBreed(uint256 _offerId, string _name1, string _name2) public {
+    require (postOffice [msg.sender].offers[_offerId].fightOrBreed == false);
+    reproduce(postOffice[msg.sender].offers[_offerId].senderCitID, postOffice[msg.sender].offers[_offerId].recipientCitID, _name1, _name2);
+  }
+
+  function fight(uint256 _id1, uint256 _id2) private returns(uint256 _idWinner){
+    if(Komrads[_id1].strength * fakeRand() > Komrads[_id2].strength * fakeRand()){
+      return _id1;
+    }
+    else{
+      return _id2;
+    }
+  }
+
+
   /*
+  function reproduce(){
+  baby(id2,id1);
+  baby(id1,id2);
+  }
   function askToReproduce(uint256 _idOwn, address _otherOwner, uint256 _idOther) public returns(bool success){}
-  function babyProletarian(uint256 _id1,uint256 _id2)  public returns (citizen littleLenin){
-  
-  }*/
+  */
 }
