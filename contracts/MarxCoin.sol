@@ -419,11 +419,7 @@ contract MarxCoin is ERC165, IERC721 {
     return true;
 
   }
-  //is equivalent to death
-  function gulag(uint256 _id) public returns (bool success){
-    _burn(ownerOf(_id),_id);
-    return true;
-  }
+
 
   function babyProletarian(uint256 _id1,uint256 _id2,string _name)  private {
     uint256 id = ids.length;
@@ -494,7 +490,6 @@ contract MarxCoin is ERC165, IERC721 {
   }
 
   function viewStats(uint256 _id)public view returns(bool success, string name, uint256 age, bool isMale, uint256 strength, uint256 hunger){
-    aging(_id);
     return(true , Komrads[_id].name , Komrads[_id].age , Komrads[_id].isMale , Komrads[_id].strength , Komrads[_id].hunger);
   }
 
@@ -523,6 +518,10 @@ contract MarxCoin is ERC165, IERC721 {
 
     Offer newOffer = postOffice[_adversary].offers[postOffice[_adversary].offersID.length];
     postOffice[_adversary].offersID.push(postOffice[_adversary].offersID.length);
+    
+    aging(_myChamp);
+    aging(_theirChamp);
+
 
     newOffer.sender = msg.sender;
     newOffer.recipient = _adversary;
@@ -540,6 +539,9 @@ contract MarxCoin is ERC165, IERC721 {
     Offer newOffer = postOffice[_adversary].offers[postOffice[_adversary].offersID.length];
     postOffice[_adversary].offersID.push(postOffice[_adversary].offersID.length);
 
+    aging(_myChamp);
+    aging(_theirChamp);
+
     newOffer.sender = msg.sender;
     newOffer.recipient = _adversary;
     newOffer.senderCitID = _myChamp;
@@ -549,10 +551,10 @@ contract MarxCoin is ERC165, IERC721 {
   }
 
   function acceptFight(uint256 _offerId) public {
-    if(postOffice [msg.sender].offers[_offerId].fightOrBreed == true){
-        uint256 win = fight(postOffice[msg.sender].offers[_offerId].senderCitID, postOffice[msg.sender].offers[_offerId].recipientCitID);
-        result(ownerOf(win), win);
-      }
+    require(postOffice [msg.sender].offers[_offerId].fightOrBreed == true)
+    uint256 win = fight(postOffice[msg.sender].offers[_offerId].senderCitID, postOffice[msg.sender].offers[_offerId].recipientCitID);
+    result(ownerOf(win), win);
+      
   }
   function acceptBreed(uint256 _offerId, string _name1, string _name2) public {
     require (postOffice [msg.sender].offers[_offerId].fightOrBreed == false);
@@ -567,6 +569,5 @@ contract MarxCoin is ERC165, IERC721 {
       return _id2;
     }
   }
-
 
 }
